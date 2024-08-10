@@ -1,0 +1,26 @@
+/* Style for the Log Viewer title */
+h1 {
+    font-family: Arial, sans-serif;
+    font-size: 24px;
+    color: #333;
+    text-align: center;
+    margin-top: 20px;
+}
+
+/* Style for the log viewer area */
+pre#log {
+    background-color: #f8f8f8;
+    border: 1px solid #ccc;
+    padding: 15px;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 14px;
+    color: #000;
+    white-space: pre-wrap;  /* Makes the text wrap inside the pre element */
+    word-wrap: break-word;  /* Ensures long lines break */
+    max-height: 400px;      /* Limits the height of the log viewer */
+    overflow-y: auto;       /* Adds a vertical scrollbar if the content overflows */
+    margin: 20px auto;
+    width: 80%;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+}

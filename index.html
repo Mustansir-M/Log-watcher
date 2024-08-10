@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+            <html lang="en">
+            <head>
+                <meta charset="UTF-8">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <title>Log Monitor</title>
+                
+                 <style>
+                    h1 {
+                        font-family: Arial, sans-serif;
+                        font-size: 24px;
+                        color: #333;
+                        text-align: center;
+                        margin-top: 20px;
+                    }
+                    pre#log {
+                        background-color: #f8f8f8;
+                        border: 1px solid #ccc;
+                        padding: 15px;
+                        font-family: 'Courier New', Courier, monospace;
+                        font-size: 14px;
+                        color: #000;
+                        white-space: pre-wrap;  
+                        word-wrap: break-word;  
+                        max-height: 400px;      
+                        overflow-y: auto;       
+                        margin: 20px auto;
+                        width: 80%;
+                        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+                        border-radius: 4px;
+                    }
+
+                 </style>
+            </head>
+            <body>
+                <h1>Log Viewer</h1>
+                <pre id="log"></pre>
+                <script>
+                    const logElement = document.getElementById('log');
+                    // This creates a new WebSocket connection to the server. 
+                    // The WebSocket URL is constructed using the current host (location.host)
+                    // ws because same is in server
+                    const ws = new WebSocket('ws://' + location.host + '/ws');
+                    
+                    // onmessage - when client recieves data from the server
+                    ws.onmessage = function(event) {
+                        const newLines = event.data.split('\\n'); 
+                        // logElement.textContent += newLines.join('\\n') + '\\n';
+                        logElement.textContent += newLines.join('\\n');
+
+                        const logLines = logElement.textContent.split('\\n');
+                        if (logLines.length > 10) {
+                            logElement.textContent = logLines.slice(-10).join('\\n') + '\\n';
+                        }
+                    };
+                    
+                    // when the connection is closed 
+                    ws.onclose = function() {
+                        logElement.textContent += "Connection closed.\\n";
+                    };
+                </script>
+            </body>
+</html>
